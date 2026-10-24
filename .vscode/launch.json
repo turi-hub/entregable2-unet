@@ -23,6 +23,14 @@
                 "--param1", "valor_param1",
                 "--param2", "valor_param2"
             ]
-        }
+        },
+        {
+            "name": "Explorar datos",
+            "type": "debugpy",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/src/runs",
+            "program": "${workspaceFolder}/src/runs/explore_data.py"
+        } 
     ]
 }
