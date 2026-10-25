@@ -2,7 +2,7 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join('..', '..')))  # Esto permite importar funciones definidas localmente en otras carpetas
 
-from src.models.fake_model import FakeModel  # Ejemplo de importación de librerías externas
+from src.models.unet_model import UNetModel  # Ejemplo de importación de librerías externas
 from src.data.loaders import crear_loaders
 from src.utils.paths import DATASET_DIR
 

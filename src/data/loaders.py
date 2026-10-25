@@ -1,6 +1,6 @@
 """
 loaders.py - Aqui basicamente creamos la carga de los datos que tenemos
-No se nos oolvide que solo tenemos trainy test entoncs lo que haremos es crear tambien validacion 
+No se nos oolvide que solo tenemos train y test entonces lo que haremos es crear tambien validacion 
 """
 
 import torch
