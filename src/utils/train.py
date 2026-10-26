@@ -28,7 +28,6 @@ def train(model, train_loader, criterion, optimizer, val_loader=None, num_epochs
 
             loss.backward()
 
-
             optimizer.step()
 
             running_loss += loss.item()  # Acumulamos el error obtenido para utilizarlo
@@ -39,7 +38,7 @@ def train(model, train_loader, criterion, optimizer, val_loader=None, num_epochs
             # Contamos el número de pixeles evaluados y acertados:
             # Devuelve el numero total de elementos de un tensor. Es decir, si tenemos una imagen 3x144x192
             # Devolverá 3x144x192 =  82944, que será el número total de píxeles.
-            count_evaluated += labels.nume1()
+            count_evaluated += labels.numel()
 
             count_correct += (predictions == labels).sum().item()
 
@@ -75,7 +74,7 @@ def train(model, train_loader, criterion, optimizer, val_loader=None, num_epochs
             with torch.no_grad():
                 for inputs_val, labels_val in val_loader:
                     
-                    inputs_val, labels_val = inputs_val[0].to(device), labels_val[1].long().to(device)
+                    inputs_val, labels_val = inputs_val.to(device), labels_val.long().to(device)
                     outputs_val = model(inputs_val)
 
                     loss_val = criterion(outputs_val, labels_val)
@@ -83,7 +82,7 @@ def train(model, train_loader, criterion, optimizer, val_loader=None, num_epochs
 
                     predictions_val = outputs_val.argmax(dim = 1)
 
-                    count_evaluated_val += labels_val.nume1()
+                    count_evaluated_val += labels_val.numel()
                     count_correct_val += (predictions_val == labels_val).sum().item()
                 # Presentamos el resumen de la validación de la epoch:
                 epoch_loss_val = running_loss_val / len(val_loader)
@@ -109,6 +108,15 @@ def train(model, train_loader, criterion, optimizer, val_loader=None, num_epochs
                 writer.add_histogram("Parametros/" + name, param.detach().cpu(), epoch) # En cpu para loggear
                 if param.grad is not None:
                     writer.add_histogram("Gradientes/" + name, param.grad.detach().cpu(), epoch) #Pues puede fallar si algún parámetro no tiene gradiente 
-
+    
     # Devolvemos, tanto el modelo entrenado, como el diccionario con las estadísticas del entrenamiento
-    return model
+    history ={
+        "train_loss" : train_loss,
+        "train_acc" : train_acc
+    }  
+
+    if val_loader is not None:
+        history["val_loss"] = val_loss
+        history["val_acc"] = val_acc
+          
+    return model, history
