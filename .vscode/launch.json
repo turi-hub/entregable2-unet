@@ -19,10 +19,7 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/src/runs",
             "program": "${workspaceFolder}/src/runs/main.py",
-            "args": [
-                "--param1", "valor_param1",
-                "--param2", "valor_param2"
-            ]
+            "args": ["--epochs", "40", "--seed", "42"]
         },
         {
             "name": "Explorar datos",
