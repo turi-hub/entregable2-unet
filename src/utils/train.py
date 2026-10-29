@@ -1,4 +1,5 @@
 import torch
+import time
 from src.utils.metrics import actualizar_cm, metricas_desde_cm
 
 def train(model, train_loader, criterion, optimizer,num_classes, val_loader=None, num_epochs=20, device='cuda', writer = None, ruta_best = None):
@@ -104,7 +105,7 @@ def train(model, train_loader, criterion, optimizer,num_classes, val_loader=None
 
                 print(f"Validation: epoch {epoch + 1}, loss: {epoch_loss_val:.3f}, "
                   f"pixel acc: {m_val['pixel_acc']:.3f}, mIoU: {m_val['miou']:.3f}")
-                    
+
                 if ruta_best is not None and m_val["miou_sin_fondo"] > mejor_miou:
                     mejor_miou = m_val["miou_sin_fondo"]
                     torch.save(model.state_dict(), ruta_best)

@@ -20,6 +20,12 @@ def test(model, test_loader, criterion, num_classes, device='cuda'):
 
     m = metricas_desde_cm(cm)
     m["loss"] = running_loss / len(test_loader)
+    # De donde vienen los errores (filas = clase real, columnas = predicha)
+    c = cm.double()
+    m["fondo_como_producto"] = (c[0, 1:].sum() / c[0].sum()).item()
+    m["producto_como_fondo"] = (c[1:, 0].sum() / c[1:].sum()).item()
+    m["producto_como_otro"] = ((c[1:, 1:].sum() - c[1:, 1:].diag().sum()) / c[1:].sum()).item()
+
 
     print(f"Test - Pixel acc: {m['pixel_acc']:.3f} | mIoU: {m['miou']:.3f} | "
           f"mIoU sin fondo: {m['miou_sin_fondo']:.3f} | mDice: {m['mdice']:.3f} | "
@@ -27,6 +33,11 @@ def test(model, test_loader, criterion, num_classes, device='cuda'):
     for c, valor in enumerate(m["iou_por_clase"]):
         print(f"  clase {c:2d}: IoU = {valor:.3f}")
 
-    
+        # De donde vienen los errores (filas = clase real, columnas = predicha)
+    c = cm.double()
+    m["fondo_como_producto"] = (c[0, 1:].sum() / c[0].sum()).item()
+    m["producto_como_fondo"] = (c[1:, 0].sum() / c[1:].sum()).item()
+    m["producto_como_otro"] = ((c[1:, 1:].sum() - c[1:, 1:].diag().sum()) / c[1:].sum()).item()
+
     # return acc_test, mean_loss_test
     return m, cm
