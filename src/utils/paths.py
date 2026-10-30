@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2] #raiz del proyecto
 DATA_DIR = ROOT / "data"
 DATASET_10_DIR = DATA_DIR /"dataset_res_144_192_10classes"
 DATASET_60_DIR = DATA_DIR /"dataset_res_144_192" #60 clases 
-DATASET_DIR = DATASET_10_DIR #por defecto
+DATASET_DIR = DATASET_60_DIR #por defecto
 
 #CONFIGURACION COMPARTIDA
 CONFIG_DIR = ROOT / "config"

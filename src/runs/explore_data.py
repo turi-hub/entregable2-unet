@@ -21,7 +21,8 @@ from src.data.dataset_semseg import SupermarketSemSeg
 from src.utils.paths import DATASET_DIR, RESULTS_DIR
 
 #Abrimos el json asociado a las imagenes, tiene la lista de las 11 clases, y que numero es cada clase 
-with open(DATASET_DIR / "label_mapping_10classes.json") as f:
+# with open(DATASET_DIR / "label_mapping_60classes.json") as f:
+with open(DATASET_DIR / "label_mapping.json") as f:
     NOMBRES = [clase["name"] for clase in json.load(f)]
 N_CLASES = len(NOMBRES)
 

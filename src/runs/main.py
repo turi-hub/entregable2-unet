@@ -33,10 +33,10 @@ def main():
     print("imgs: ", imgs.shape, imgs.dtype)
     print("masks:", masks.shape, masks.dtype)
 
-    num_classes = 11
+    num_classes = 61
     
     # ENTRENAMIENTO
-    model = UNetModel()
+    model = UNetModel(num_clases=num_classes)
     n_params = sum(p.numel() for p in model.parameters())
     print("Parametros del modelo:", n_params)
 

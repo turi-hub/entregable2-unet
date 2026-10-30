@@ -23,11 +23,22 @@ El dice es F1 score aplicado a pixeles
 """
 import torch
 
+""" Este no es muy optimo para 60 clases, hace demasiadas pasadads
 def actualizar_cm(cm, preds, labels, num_classes):
     for r in range(num_classes):
         for p in range(num_classes):
             cm[r,p] += ((labels == r) & (preds == p)).sum()
     return cm
+"""
+
+def actualizar_cm(cm, preds, labels, num_classes):
+    # cada pareja (real, predicha) pasa a un indice unico real*num_classes + predicha
+    # y bincount cuenta cuantas veces sale cada una
+    idx = labels.flatten() * num_classes + preds.flatten()
+    cm += torch.bincount(idx, minlength=num_classes ** 2).reshape(num_classes, num_classes)
+    return cm
+
+
 
 def metricas_desde_cm(cm):
     cm = cm.double()

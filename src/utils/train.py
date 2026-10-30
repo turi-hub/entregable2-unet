@@ -116,7 +116,7 @@ def train(model, train_loader, criterion, optimizer,num_classes, val_loader=None
                     writer.add_scalar("PixelAcc/val", m_val["pixel_acc"], epoch)
                     writer.add_scalar("mIoU/val", m_val["miou"], epoch)
         
-        if writer is not None:
+        if writer is not None and (epoch % 5 == 0 or epoch == num_epochs -1):
             for name, param in model.named_parameters():
                 writer.add_histogram("Parametros/" + name, param.detach().cpu(), epoch) # En cpu para loggear
                 if param.grad is not None:
