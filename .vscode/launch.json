@@ -28,6 +28,15 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/src/runs",
             "program": "${workspaceFolder}/src/runs/explore_data.py"
+        },
+        {
+            "name": "Lanzar mejoras",
+            "type": "debugpy",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/src/runs",
+            "program": "${workspaceFolder}/src/runs/main_mejoras.py",
+            "args": ["--epochs", "40", "--seed", "42"]
         } 
     ]
 }

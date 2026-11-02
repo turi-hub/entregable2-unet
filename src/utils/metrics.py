@@ -50,6 +50,10 @@ def metricas_desde_cm(cm):
     dice = 2*tp / (2*tp + fp + fn)
     pixel_acc = tp.sum() / cm.sum()
 
+    ausentes = cm.sum(dim = 1) == 0
+    iou[ausentes] = float("nan")
+    dice[ausentes] = float("nan")  
+
     return {"pixel_acc" : pixel_acc.item(),
             "miou": torch.nanmean(iou).item(),
             "miou_sin_fondo": torch.nanmean(iou[1:]).item(),
